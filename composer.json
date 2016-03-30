@@ -1,0 +1,30 @@
+{
+    "name": "vain/logger",
+    "type": "shared-package",
+    "authors": [
+        {
+            "name": "Taras Girnyk",
+            "email": "le@mirohost.net",
+            "homepage": "https://github.com/allflame/vain-logger",
+            "role": "Maintainer"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "src\\Vain\\Logger\\": "./"
+        }
+    },
+    "require": {
+        "php": ">=5.6.0",
+        "monolog/monolog": "1.18.*",
+        "vain/http": "dev-master"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/allflame/vain-http"
+        }
+    ],
+    "prefer-stable": true,
+    "minimum-stability": "dev"
+}
