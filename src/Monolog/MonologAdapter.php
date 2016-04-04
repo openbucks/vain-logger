@@ -11,10 +11,14 @@ namespace Vain\Logger\Monolog;
 use Monolog\Logger as MonologInstance;
 use Vain\Logger\LoggerInterface;
 
-class MonologLogger implements LoggerInterface
+class MonologAdapter implements LoggerInterface
 {
     private $monologInstance;
-    
+
+    /**
+     * MonologAdapter constructor.
+     * @param MonologInstance $monologInstance
+     */
     public function __construct(MonologInstance $monologInstance)
     {
         $this->monologInstance = $monologInstance;

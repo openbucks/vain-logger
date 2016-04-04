@@ -9,16 +9,16 @@
 namespace Vain\Logger\Monolog\Handler\Dynamic;
 
 use Monolog\Formatter\FormatterInterface;
-use Monolog\Handler\HandlerInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use Vain\Logger\Monolog\Handler\Composite\CompositeMonologHandlerInterface;
-use Vain\Logger\Dynamic\DynamicLoggerInterface;
+use Monolog\Handler\HandlerInterface as MonologHandlerInterface;
+use Vain\Logger\Handler\Dynamic\DynamicHandlerInterface;
+use Vain\Logger\Monolog\Handler\Composite\CompositeHandlerInterface;
 
-class DynamicMonologHandler implements CompositeMonologHandlerInterface, DynamicLoggerInterface
+class MonologCompositeHandler implements CompositeHandlerInterface, DynamicHandlerInterface
 {
     /**
-     * @var HandlerInterface[]
+     * @var CompositeHandlerInterface[]
      */
     private $handlers = [];
     
@@ -29,7 +29,7 @@ class DynamicMonologHandler implements CompositeMonologHandlerInterface, Dynamic
     /**
      * VainMonologCompositeHandler constructor.
      * @param FormatterInterface $formatter
-     * @param HandlerInterface[] $handlers
+     * @param CompositeHandlerInterface[] $handlers
      * @param int $logHeader
      */
     public function __construct(FormatterInterface $formatter, array $handlers, $logHeader)
@@ -42,14 +42,14 @@ class DynamicMonologHandler implements CompositeMonologHandlerInterface, Dynamic
         $this->logHeader = $logHeader;
     }
 
-    public function addHandler(HandlerInterface $handler)
+    public function addHandler(MonologHandlerInterface $handler)
     {
         $this->originalLevels[spl_object_hash($handler)] = $handler;
         
         return $this;
     }
 
-    public function removeHandler(HandlerInterface $handler)
+    public function removeHandler(MonologHandlerInterface $handler)
     {
         $hash = spl_object_hash($handler);
         if (false === array_key_exists($hash, $this->handlers)) {
