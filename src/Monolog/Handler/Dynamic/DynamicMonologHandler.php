@@ -6,17 +6,16 @@
  * Time: 9:26 AM
  */
 
-namespace Vain\Logger\Adapter\Monolog\Handler\Dynamic;
+namespace Vain\Logger\Monolog\Handler\Dynamic;
 
 use Monolog\Formatter\FormatterInterface;
 use Monolog\Handler\HandlerInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use Vain\Logger\Adapter\Monolog\Handler\Composite\VainMonologCompositeHandlerInterface;
+use Vain\Logger\Monolog\Handler\Composite\CompositeMonologHandlerInterface;
+use Vain\Logger\Dynamic\DynamicLoggerInterface;
 
-class VainMonologDynamicHandler implements
-    VainMonologCompositeHandlerInterface,
-    VainMonologDynamicHandlerInterface
+class DynamicMonologHandler implements CompositeMonologHandlerInterface, DynamicLoggerInterface
 {
     /**
      * @var HandlerInterface[]

@@ -8,9 +8,9 @@
 
 namespace Vain\Logger;
 
-use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerInterface as PsrLoggerInterface;
 
-interface VainLoggerInterface extends LoggerInterface
+interface LoggerInterface extends PsrLoggerInterface
 {
 
 }

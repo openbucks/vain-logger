@@ -6,12 +6,12 @@
  * Time: 12:32 PM
  */
 
-namespace Vain\Logger\Adapter\Monolog;
+namespace Vain\Logger\Monolog;
 
 use Monolog\Logger as MonologInstance;
-use Vain\Logger\VainLoggerInterface;
+use Vain\Logger\LoggerInterface;
 
-class VainLoggerMonologAdapter implements VainLoggerInterface
+class MonologLogger implements LoggerInterface
 {
     private $monologInstance;
     
