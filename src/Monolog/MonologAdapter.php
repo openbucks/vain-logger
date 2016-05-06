@@ -9,9 +9,9 @@
 namespace Vain\Logger\Monolog;
 
 use Monolog\Logger as MonologInstance;
-use Vain\Logger\LoggerInterface;
+use Psr\Log\LoggerInterface as PsrLoggerInterface;
 
-class MonologAdapter implements LoggerInterface
+class MonologAdapter implements PsrLoggerInterface
 {
     private $monologInstance;
 
