@@ -1,5 +1,5 @@
 {
-    "name": "mmjitsu/vain-logger",
+    "name": "vain/logger",
     "type": "shared-package",
     "authors": [
         {
@@ -17,7 +17,7 @@
     "require": {
         "php": ">=5.6.0",
         "monolog/monolog": "1.18.*",
-        "mmjitsu/vain-http": "dev-master"
+        "vain/http": "dev-master"
     },
     "repositories": [
         {
