@@ -1,15 +1,23 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: allflame
- * Date: 3/29/16
- * Time: 9:25 AM
+ * Vain Framework
+ *
+ * PHP Version 7
+ *
+ * @package   vain-logger
+ * @license   https://opensource.org/licenses/MIT MIT License
+ * @link      https://github.com/allflame/vain-logger
  */
 
 namespace Vain\Logger\Monolog\Handler\Composite;
 
 use \Monolog\Handler\HandlerInterface as MonologHandlerInterface;
 
+/**
+ * Interface CompositeHandlerInterface
+ *
+ * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
+ */
 interface CompositeHandlerInterface extends MonologHandlerInterface
 {
     /**

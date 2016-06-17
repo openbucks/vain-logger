@@ -1,11 +1,13 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: allflame
- * Date: 3/29/16
- * Time: 9:26 AM
+ * Vain Framework
+ *
+ * PHP Version 7
+ *
+ * @package   vain-logger
+ * @license   https://opensource.org/licenses/MIT MIT License
+ * @link      https://github.com/allflame/vain-logger
  */
-
 namespace Vain\Logger\Monolog\Handler\Dynamic;
 
 use Monolog\Formatter\FormatterInterface;
@@ -15,6 +17,11 @@ use Monolog\Handler\HandlerInterface as MonologHandlerInterface;
 use Vain\Logger\Handler\Dynamic\DynamicHandlerInterface;
 use Vain\Logger\Monolog\Handler\Composite\CompositeHandlerInterface;
 
+/**
+ * Class MonologCompositeHandler
+ *
+ * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
+ */
 class MonologCompositeHandler implements CompositeHandlerInterface, DynamicHandlerInterface
 {
     /**
@@ -42,6 +49,9 @@ class MonologCompositeHandler implements CompositeHandlerInterface, DynamicHandl
         $this->logHeader = $logHeader;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function addHandler(MonologHandlerInterface $handler)
     {
         $this->originalLevels[spl_object_hash($handler)] = $handler;
@@ -49,6 +59,9 @@ class MonologCompositeHandler implements CompositeHandlerInterface, DynamicHandl
         return $this;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function removeHandler(MonologHandlerInterface $handler)
     {
         $hash = spl_object_hash($handler);
