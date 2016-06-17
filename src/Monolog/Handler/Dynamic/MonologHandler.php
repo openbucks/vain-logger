@@ -4,9 +4,9 @@
  *
  * PHP Version 7
  *
- * @package   vain-id
+ * @package   vain-logger
  * @license   https://opensource.org/licenses/MIT MIT License
- * @link      https://github.com/allflame/vain-id
+ * @link      https://github.com/allflame/vain-logger
  */
 namespace Vain\Logger\Monolog\Handler\Dynamic;
 
