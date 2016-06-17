@@ -1,16 +1,23 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: allflame
- * Date: 3/28/16
- * Time: 12:32 PM
+ * Vain Framework
+ *
+ * PHP Version 7
+ *
+ * @package   vain-id
+ * @license   https://opensource.org/licenses/MIT MIT License
+ * @link      https://github.com/allflame/vain-id
  */
-
 namespace Vain\Logger\Monolog;
 
 use Monolog\Logger as MonologInstance;
 use Psr\Log\LoggerInterface as PsrLoggerInterface;
 
+/**
+ * Class MonologAdapter
+ *
+ * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
+ */
 class MonologAdapter implements PsrLoggerInterface
 {
     private $monologInstance;
@@ -27,7 +34,7 @@ class MonologAdapter implements PsrLoggerInterface
     /**
      * @inheritDoc
      */
-    public function emergency($message, array $context = array())
+    public function emergency($message, array $context = [])
     {
         return $this->monologInstance->emergency($message, $context);
     }
@@ -35,7 +42,7 @@ class MonologAdapter implements PsrLoggerInterface
     /**
      * @inheritDoc
      */
-    public function alert($message, array $context = array())
+    public function alert($message, array $context = [])
     {
         return $this->monologInstance->alert($message, $context);
     }
@@ -43,7 +50,7 @@ class MonologAdapter implements PsrLoggerInterface
     /**
      * @inheritDoc
      */
-    public function critical($message, array $context = array())
+    public function critical($message, array $context = [])
     {
         return $this->monologInstance->critical($message, $context);
     }
@@ -51,7 +58,7 @@ class MonologAdapter implements PsrLoggerInterface
     /**
      * @inheritDoc
      */
-    public function error($message, array $context = array())
+    public function error($message, array $context = [])
     {
         return $this->monologInstance->error($message, $context);
     }
@@ -59,7 +66,7 @@ class MonologAdapter implements PsrLoggerInterface
     /**
      * @inheritDoc
      */
-    public function warning($message, array $context = array())
+    public function warning($message, array $context = [])
     {
         return $this->monologInstance->warning($message, $context);
     }
@@ -67,7 +74,7 @@ class MonologAdapter implements PsrLoggerInterface
     /**
      * @inheritDoc
      */
-    public function notice($message, array $context = array())
+    public function notice($message, array $context = [])
     {
         return $this->monologInstance->notice($message, $context);
     }
@@ -75,7 +82,7 @@ class MonologAdapter implements PsrLoggerInterface
     /**
      * @inheritDoc
      */
-    public function info($message, array $context = array())
+    public function info($message, array $context = [])
     {
         return $this->monologInstance->info($message, $context);
     }
@@ -83,7 +90,7 @@ class MonologAdapter implements PsrLoggerInterface
     /**
      * @inheritDoc
      */
-    public function debug($message, array $context = array())
+    public function debug($message, array $context = [])
     {
         return $this->monologInstance->debug($message, $context);
     }
@@ -91,7 +98,7 @@ class MonologAdapter implements PsrLoggerInterface
     /**
      * @inheritDoc
      */
-    public function log($level, $message, array $context = array())
+    public function log($level, $message, array $context = [])
     {
         return $this->monologInstance->log($level, $message, $context);
     }
