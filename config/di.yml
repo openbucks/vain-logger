@@ -1,5 +1,5 @@
 imports:
-  - { resource: 'vendor/vain/http/config/di.yml' }
+  #- { resource: 'vendor/vain/http/config/di.yml' }
 
 services:
   monolog.logger:
