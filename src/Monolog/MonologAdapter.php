@@ -8,6 +8,8 @@
  * @license   https://opensource.org/licenses/MIT MIT License
  * @link      https://github.com/allflame/vain-logger
  */
+declare(strict_types = 1);
+
 namespace Vain\Logger\Monolog;
 
 use Monolog\Logger as MonologInstance;

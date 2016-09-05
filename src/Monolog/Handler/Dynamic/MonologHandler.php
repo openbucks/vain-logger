@@ -8,12 +8,17 @@
  * @license   https://opensource.org/licenses/MIT MIT License
  * @link      https://github.com/allflame/vain-logger
  */
+declare(strict_types=1);
+
 namespace Vain\Logger\Monolog\Handler\Dynamic;
 
 use Monolog\Formatter\FormatterInterface;
+use Monolog\Handler\HandlerInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Monolog\Handler\HandlerInterface as MonologHandlerInterface;
+use Vain\Http\Request\Event\Listener\RequestEventListenerInterface;
+use Vain\Http\Response\Event\Listener\ResponseEventListenerInterface;
 use Vain\Logger\Handler\Dynamic\DynamicHandlerInterface;
 use Vain\Logger\Monolog\Handler\Composite\CompositeHandlerInterface;
 
@@ -52,7 +57,7 @@ class MonologCompositeHandler implements CompositeHandlerInterface, DynamicHandl
     /**
      * @inheritDoc
      */
-    public function addHandler(MonologHandlerInterface $handler)
+    public function addHandler(MonologHandlerInterface $handler) : CompositeHandlerInterface
     {
         $this->originalLevels[spl_object_hash($handler)] = $handler;
         
@@ -62,7 +67,7 @@ class MonologCompositeHandler implements CompositeHandlerInterface, DynamicHandl
     /**
      * @inheritDoc
      */
-    public function removeHandler(MonologHandlerInterface $handler)
+    public function removeHandler(MonologHandlerInterface $handler) : CompositeHandlerInterface
     {
         $hash = spl_object_hash($handler);
         if (false === array_key_exists($hash, $this->handlers)) {
@@ -76,7 +81,7 @@ class MonologCompositeHandler implements CompositeHandlerInterface, DynamicHandl
     /**
      * @inheritDoc
      */
-    public function isHandling(array $record)
+    public function isHandling(array $record) : bool
     {
         foreach ($this->handlers as $handler) {
             if ($handler->isHandling($record)) {
@@ -90,7 +95,7 @@ class MonologCompositeHandler implements CompositeHandlerInterface, DynamicHandl
     /**
      * @inheritDoc
      */
-    public function handle(array $record)
+    public function handle(array $record) : HandlerInterface
     {
         foreach ($this->handlers as $handler) {
             $handler->handle($record);
@@ -102,7 +107,7 @@ class MonologCompositeHandler implements CompositeHandlerInterface, DynamicHandl
     /**
      * @inheritDoc
      */
-    public function handleBatch(array $records)
+    public function handleBatch(array $records) : HandlerInterface
     {
         foreach ($this->handlers as $handler) {
             $handler->handleBatch($records);
@@ -114,17 +119,19 @@ class MonologCompositeHandler implements CompositeHandlerInterface, DynamicHandl
     /**
      * @inheritDoc
      */
-    public function pushProcessor($callback)
+    public function pushProcessor($callback) : HandlerInterface
     {
         foreach ($this->handlers as $handler) {
             $handler->pushProcessor($callback);
         }
+
+        return $this;
     }
 
     /**
      * @inheritDoc
      */
-    public function popProcessor()
+    public function popProcessor() : HandlerInterface
     {
         foreach ($this->handlers as $handler) {
             $handler->popProcessor();
@@ -136,7 +143,7 @@ class MonologCompositeHandler implements CompositeHandlerInterface, DynamicHandl
     /**
      * @inheritDoc
      */
-    public function setFormatter(FormatterInterface $formatter)
+    public function setFormatter(FormatterInterface $formatter) : HandlerInterface
     {
         foreach ($this->handlers as $handler) {
             $handler->setFormatter($formatter);
@@ -148,7 +155,7 @@ class MonologCompositeHandler implements CompositeHandlerInterface, DynamicHandl
     /**
      * @inheritDoc
      */
-    public function getFormatter()
+    public function getFormatter() : FormatterInterface
     {
         foreach ($this->handlers as $handler) {
             return $handler->getFormatter();
@@ -160,7 +167,7 @@ class MonologCompositeHandler implements CompositeHandlerInterface, DynamicHandl
     /**
      * @inheritDoc
      */
-    public function onRequest(RequestInterface $request)
+    public function onRequest(RequestInterface $request) : RequestEventListenerInterface
     {
         if (false === $request->hasHeader($this->logHeader)) {
             return $this;
@@ -181,7 +188,7 @@ class MonologCompositeHandler implements CompositeHandlerInterface, DynamicHandl
     /**
      * @inheritDoc
      */
-    public function onResponse(ResponseInterface $response)
+    public function onResponse(ResponseInterface $response) : ResponseEventListenerInterface
     {
         if ([] === $this->originalLevels) {
             return $this;

@@ -17,7 +17,7 @@
     "require": {
         "php": ">=7.0",
         "monolog/monolog": "1.18.*",
-        "vain/http": "^0.2"
+        "vain/http": "^0.3"
     },
     "repositories": [
         {
