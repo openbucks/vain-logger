@@ -8,6 +8,7 @@
  * @license   https://opensource.org/licenses/MIT MIT License
  * @link      https://github.com/allflame/vain-logger
  */
+declare(strict_types=1);
 
 namespace Vain\Logger\Monolog\Handler\Composite;
 
@@ -25,12 +26,12 @@ interface CompositeHandlerInterface extends MonologHandlerInterface
      *
      * @return CompositeHandlerInterface
      */
-    public function addHandler(MonologHandlerInterface $handler);
+    public function addHandler(MonologHandlerInterface $handler) : CompositeHandlerInterface;
 
     /**
      * @param MonologHandlerInterface $handler
      *
      * @return CompositeHandlerInterface
      */
-    public function removeHandler(MonologHandlerInterface $handler);
+    public function removeHandler(MonologHandlerInterface $handler) : CompositeHandlerInterface;
 }
