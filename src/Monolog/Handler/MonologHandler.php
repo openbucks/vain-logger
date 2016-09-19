@@ -8,9 +8,9 @@
  * @license   https://opensource.org/licenses/MIT MIT License
  * @link      https://github.com/allflame/vain-logger
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
-namespace Vain\Logger\Monolog\Handler\Dynamic;
+namespace Vain\Logger\Monolog\Handler;
 
 use Monolog\Formatter\FormatterInterface;
 use Monolog\Handler\HandlerInterface;
@@ -23,26 +23,27 @@ use Vain\Logger\Handler\Dynamic\DynamicHandlerInterface;
 use Vain\Logger\Monolog\Handler\Composite\CompositeHandlerInterface;
 
 /**
- * Class MonologCompositeHandler
+ * Class MonologHandler
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-class MonologCompositeHandler implements CompositeHandlerInterface, DynamicHandlerInterface
+class MonologHandler implements CompositeHandlerInterface, DynamicHandlerInterface
 {
     /**
      * @var CompositeHandlerInterface[]
      */
     private $handlers = [];
-    
+
     private $originalLevels = [];
-    
+
     private $logHeader;
 
     /**
      * VainMonologCompositeHandler constructor.
-     * @param FormatterInterface $formatter
+     *
+     * @param FormatterInterface          $formatter
      * @param CompositeHandlerInterface[] $handlers
-     * @param int $logHeader
+     * @param int                         $logHeader
      */
     public function __construct(FormatterInterface $formatter, array $handlers, $logHeader)
     {
@@ -50,7 +51,7 @@ class MonologCompositeHandler implements CompositeHandlerInterface, DynamicHandl
             $this->addHandler($handler);
             $handler->setFormatter($formatter);
         }
-        
+
         $this->logHeader = $logHeader;
     }
 
@@ -60,7 +61,7 @@ class MonologCompositeHandler implements CompositeHandlerInterface, DynamicHandl
     public function addHandler(MonologHandlerInterface $handler) : CompositeHandlerInterface
     {
         $this->originalLevels[spl_object_hash($handler)] = $handler;
-        
+
         return $this;
     }
 
@@ -73,8 +74,9 @@ class MonologCompositeHandler implements CompositeHandlerInterface, DynamicHandl
         if (false === array_key_exists($hash, $this->handlers)) {
             return $this;
         }
-        
+
         unset($this->originalLevels[$hash]);
+
         return $this;
     }
 
@@ -88,7 +90,7 @@ class MonologCompositeHandler implements CompositeHandlerInterface, DynamicHandl
                 return true;
             }
         }
-        
+
         return false;
     }
 
@@ -100,7 +102,7 @@ class MonologCompositeHandler implements CompositeHandlerInterface, DynamicHandl
         foreach ($this->handlers as $handler) {
             $handler->handle($record);
         }
-        
+
         return $this;
     }
 
@@ -112,7 +114,7 @@ class MonologCompositeHandler implements CompositeHandlerInterface, DynamicHandl
         foreach ($this->handlers as $handler) {
             $handler->handleBatch($records);
         }
-        
+
         return $this;
     }
 
@@ -136,7 +138,7 @@ class MonologCompositeHandler implements CompositeHandlerInterface, DynamicHandl
         foreach ($this->handlers as $handler) {
             $handler->popProcessor();
         }
-        
+
         return $this;
     }
 
@@ -148,7 +150,7 @@ class MonologCompositeHandler implements CompositeHandlerInterface, DynamicHandl
         foreach ($this->handlers as $handler) {
             $handler->setFormatter($formatter);
         }
-        
+
         return $this;
     }
 
@@ -160,7 +162,7 @@ class MonologCompositeHandler implements CompositeHandlerInterface, DynamicHandl
         foreach ($this->handlers as $handler) {
             return $handler->getFormatter();
         }
-        
+
         return null;
     }
 
@@ -172,7 +174,7 @@ class MonologCompositeHandler implements CompositeHandlerInterface, DynamicHandl
         if (false === $request->hasHeader($this->logHeader)) {
             return $this;
         }
-        
+
         $logLevel = $request->getHeader($this->logHeader);
         foreach ($this->handlers as $handler) {
             if (false === method_exists($handler, 'getLevel') && method_exists($handler, 'setLevel')) {
@@ -193,12 +195,12 @@ class MonologCompositeHandler implements CompositeHandlerInterface, DynamicHandl
         if ([] === $this->originalLevels) {
             return $this;
         }
-        
+
         foreach ($this->handlers as $handler) {
             if (false === method_exists($handler, 'setLevel')) {
                 continue;
             }
-            
+
             $hash = spl_object_hash($handler);
             if (false === array_key_exists($hash, $this->originalLevels)) {
                 continue;
@@ -206,9 +208,7 @@ class MonologCompositeHandler implements CompositeHandlerInterface, DynamicHandl
             $handler->setLevel($this->originalLevels[$hash]);
         }
         $this->originalLevels = [];
-        
+
         return $this;
     }
-
-
 }

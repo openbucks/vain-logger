@@ -2,5 +2,5 @@ services:
   monolog.logger:
     class: Monolog\Logger
   app.logger:
-    class: Vain\Logger\Monolog\Handler\Dynamic\MonologCompositeHandler
+    class: Vain\Logger\Monolog\Handler\MonologHandler
     arguments: ['@monolog.logger']

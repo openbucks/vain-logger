@@ -26,6 +26,7 @@ class MonologAdapter implements PsrLoggerInterface
 
     /**
      * MonologAdapter constructor.
+     *
      * @param MonologInstance $monologInstance
      */
     public function __construct(MonologInstance $monologInstance)
