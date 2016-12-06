@@ -12,16 +12,21 @@ declare(strict_types = 1);
 
 namespace Vain\Logger\Monolog;
 
+use Monolog\Handler\AbstractHandler;
+use Monolog\Handler\HandlerInterface;
 use Monolog\Logger as MonologInstance;
-use Psr\Log\LoggerInterface as PsrLoggerInterface;
+use Vain\Logger\LoggerInterface;
 
 /**
  * Class MonologAdapter
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-class MonologAdapter implements PsrLoggerInterface
+class MonologAdapter implements LoggerInterface
 {
+
+    private $originalLevels = [];
+
     private $monologInstance;
 
     /**
@@ -105,4 +110,53 @@ class MonologAdapter implements PsrLoggerInterface
     {
         return $this->monologInstance->log($level, $message, $context);
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function addHandler(HandlerInterface $handler)
+    {
+        $this->monologInstance->pushHandler($handler);
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function overrideLevel($level)
+    {
+        /**
+         * @var AbstractHandler[] $handlers
+         */
+        $handlers = $this->monologInstance->getHandlers();
+
+        foreach ($handlers as $handler) {
+            $this->originalLevels[spl_object_hash($handler)] = $handler->getLevel();
+            $handler->setLevel($level);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function restoreLevel()
+    {
+        /**
+         * @var AbstractHandler[] $handlers
+         */
+        $handlers = $this->monologInstance->getHandlers();
+
+        foreach ($handlers as $handler) {
+            if (false === array_key_exists(spl_object_hash($handler), $this->originalLevels)) {
+                continue;
+            }
+            $handler->setLevel($this->originalLevels[spl_object_hash($handler)]);
+        }
+
+        return $this;
+    }
+
 }

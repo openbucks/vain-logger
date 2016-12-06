@@ -16,13 +16,13 @@
     },
     "require": {
         "php": ">=7.0",
-        "monolog/monolog": "1.18.*",
-        "vain/http": "^0.4"
+        "vain/core": "^0.4",
+        "monolog/monolog": "*"
     },
     "repositories": [
         {
             "type": "composer",
-            "url": "http://78.140.176.167"
+            "url": "http://78.47.118.217"
         }
     ],
     "config": {
