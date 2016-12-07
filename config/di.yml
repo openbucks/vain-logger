@@ -1,7 +1,17 @@
+paramters:
+  monolog.logger.format: "[%datetime%] %channel%.%level_name%: %message% %context% %extra%\n"
+
 services:
   monolog.logger:
     class: Monolog\Logger
   app.logger:
     class: Vain\Logger\Monolog\MonologAdapter
     arguments: ['@monolog.logger']
+  logger.handler.abstract:
+    abstract: true
+    calls:
+      - [setMailer, ['@monolog.formatter']]
   logger: '@app.logger'
+  monolog.formatter:
+    class: Monolog\Formatter\LineFormatter
+    arguments: ['%monolog.logger.format%']
