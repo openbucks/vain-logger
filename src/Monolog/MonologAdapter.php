@@ -144,6 +144,10 @@ class MonologAdapter implements LoggerInterface
      */
     public function restoreLevel()
     {
+        if ([] === $this->originalLevels) {
+            return $this;
+        }
+
         /**
          * @var AbstractHandler[] $handlers
          */
