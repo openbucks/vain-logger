@@ -4,3 +4,4 @@ services:
   app.logger:
     class: Vain\Logger\Monolog\MonologAdapter
     arguments: ['@monolog.logger']
+  logger: '@app.logger'
