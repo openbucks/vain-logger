@@ -1,14 +1,17 @@
+parameters:
+  monolog.logger.main: 'app'
+
 services:
-  monolog.logger:
+  monolog.logger.main:
     class: Monolog\Logger
-    arguments: ['%app.name%']
-  app.logger:
+    arguments: ['%monolog.logger.main%']
+  logger.main:
     class: Vain\Logger\Monolog\MonologAdapter
-    arguments: ['@monolog.logger']
+    arguments: ['@monolog.logger.main']
   logger.handler.abstract:
     abstract: true
     calls:
-      - [setMailer, ['@monolog.formatter']]
-  logger: '@app.logger'
+      - [setFormatter, ['@monolog.formatter']]
+  logger: '@logger.main'
   monolog.formatter:
     class: Vain\Logger\Formatter\MonologLineFormatter
