@@ -10,7 +10,7 @@
  */
 declare(strict_types = 1);
 
-namespace Vain\Logger\Formatter;
+namespace Vain\Logger\Monolog;
 
 use Monolog\Formatter\LineFormatter;
 
@@ -26,11 +26,11 @@ class MonologLineFormatter extends LineFormatter
     /**
      * MonologLineFormatter constructor.
      *
-     * @param null|string $dateFormat
-     * @param null|string $allowInlineLineBreaks
-     * @param bool        $ignoreEmptyContextAndExtra
+     * @param string $dateFormat
+     * @param bool   $allowInlineLineBreaks
+     * @param bool   $ignoreEmptyContextAndExtra
      */
-    public function __construct($dateFormat, $allowInlineLineBreaks, $ignoreEmptyContextAndExtra)
+    public function __construct($dateFormat = null, $allowInlineLineBreaks = false, $ignoreEmptyContextAndExtra = false)
     {
         parent::__construct(self::EXTENDED_FORMAT, $dateFormat, $allowInlineLineBreaks, $ignoreEmptyContextAndExtra);
     }

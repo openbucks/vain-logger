@@ -8,10 +8,12 @@ services:
   logger.main:
     class: Vain\Logger\Monolog\MonologAdapter
     arguments: ['@monolog.logger.main']
+    tags:
+      - {name: logger}
   logger.handler.abstract:
     abstract: true
     calls:
       - [setFormatter, ['@monolog.formatter']]
   logger: '@logger.main'
   monolog.formatter:
-    class: Vain\Logger\Formatter\MonologLineFormatter
+    class: Vain\Logger\Monolog\MonologLineFormatter
