@@ -162,5 +162,4 @@ class MonologAdapter implements LoggerInterface
 
         return $this;
     }
-
 }
